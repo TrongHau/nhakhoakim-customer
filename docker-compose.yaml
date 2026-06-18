@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    image: max26292/php71
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html/
+    command: apachectl -D FOREGROUND
+  redis:
+    image: redis

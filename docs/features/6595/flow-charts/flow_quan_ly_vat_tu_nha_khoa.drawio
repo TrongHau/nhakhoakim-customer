@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.4">
+  <diagram id="material-flow" name="Flow - Quan ly vat tu nha khoa">
+    <mxGraphModel dx="1426" dy="736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1" value="Flow tổng thể - Quản lý vật tư nha khoa" vertex="1">
+          <mxGeometry height="30" width="420" x="470" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;" value="Bắt đầu" vertex="1">
+          <mxGeometry height="60" width="140" x="600" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="clinic_create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Phòng khám tạo yêu cầu cấp phát&#xa;Trạng thái: Chờ duyệt" vertex="1">
+          <mxGeometry height="90" width="340" x="500" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="warehouse_receive" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#d5e8d4;strokeColor=#82b366;" value="Kho trung tâm tiếp nhận yêu cầu" vertex="1">
+          <mxGeometry height="70" width="300" x="520" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="check_stock" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=16;" value="Đủ tồn kho?" vertex="1">
+          <mxGeometry height="110" width="190" x="575" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="create_transfer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#d5e8d4;strokeColor=#82b366;" value="Duyệt yêu cầu + tạo phiếu xuất kho&#xa;Trạng thái: Đang giao" vertex="1">
+          <mxGeometry height="90" width="340" x="500" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="ship_goods" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#d5e8d4;strokeColor=#82b366;" value="Kho trung tâm giao hàng&#xa;cho phòng khám" vertex="1">
+          <mxGeometry height="80" width="300" x="520" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="clinic_confirm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Phòng khám xác nhận nhận hàng&#xa;Trạng thái phiếu: Đã xác nhận" vertex="1">
+          <mxGeometry height="90" width="360" x="490" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="request_done" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#fff2cc;strokeColor=#d6b656;" value="Yêu cầu hoàn tất&#xa;Cập nhật số lượng đã nhận" vertex="1">
+          <mxGeometry height="80" width="300" x="520" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="end" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" value="Kết thúc" vertex="1">
+          <mxGeometry height="60" width="140" x="600" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="create_po" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Tạo đơn đặt hàng NCC (PO)&#xa;Trạng thái: Đang tạo" vertex="1">
+          <mxGeometry height="90" width="320" x="980" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="send_po" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Gửi PO cho nhà cung cấp&#xa;Trạng thái: Đã gửi NCC" vertex="1">
+          <mxGeometry height="90" width="320" x="980" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="supplier_deliver" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Nhà cung cấp giao hàng" vertex="1">
+          <mxGeometry height="70" width="260" x="1010" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="receipt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Tạo phiếu nhập kho&#xa;Kiểm kê số lượng nhận vs đặt" vertex="1">
+          <mxGeometry height="90" width="340" x="970" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="update_inventory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Cập nhật tồn kho" vertex="1">
+          <mxGeometry height="70" width="220" x="1030" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="partial_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" value="Có thể giao nhiều đợt&#xa;cho 1 yêu cầu" vertex="1">
+          <mxGeometry height="90" width="200" x="210" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" target="clinic_create">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="clinic_create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="warehouse_receive">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="warehouse_receive" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="check_stock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="check_stock" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="create_transfer" value="Có">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="create_transfer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="ship_goods">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="ship_goods" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="clinic_confirm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="clinic_confirm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="request_done">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="request_done" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="check_stock" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="create_po" value="Không / Cần bổ sung">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="create_po" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="send_po">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="send_po" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="supplier_deliver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="supplier_deliver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="receipt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="receipt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="update_inventory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="update_inventory" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;" target="create_transfer" value="Tồn kho đã bổ sung">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="1020" />
+              <mxPoint x="900" y="1020" />
+              <mxPoint x="900" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

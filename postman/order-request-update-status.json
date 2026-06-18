@@ -1,0 +1,168 @@
+{
+  "info": {
+    "name": "Order Request - Update Status",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Update Status = 4 (Xuất kho)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "OrderRequestId",
+              "value": "1",
+              "type": "text",
+              "description": "ID của yêu cầu cấp phát"
+            },
+            {
+              "key": "Status",
+              "value": "4",
+              "type": "text",
+              "description": "4 = Đang vận chuyển (xuất kho)"
+            },
+            {
+              "key": "Details[0][OrderRequestDetailId]",
+              "value": "1",
+              "type": "text",
+              "description": "ID dòng sản phẩm trong OrderRequest"
+            },
+            {
+              "key": "Details[0][ExpectedQty]",
+              "value": "3",
+              "type": "text",
+              "description": "Số lượng xuất (UI có thể chỉnh, mặc định = RequestQuantity)"
+            },
+            {
+              "key": "Details[1][OrderRequestDetailId]",
+              "value": "2",
+              "type": "text"
+            },
+            {
+              "key": "Details[1][ExpectedQty]",
+              "value": "5",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/update-status",
+          "host": ["{{base_url}}"],
+          "path": ["customer", "inventory", "order-request", "update-status"]
+        },
+        "description": "Khi Status = 4, tạo phiếu xuất kho. Details là optional - nếu không truyền hoặc thiếu dòng nào thì dùng RequestQuantity gốc."
+      }
+    },
+    {
+      "name": "Update Status = 5 (Nhận hàng)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "OrderRequestId",
+              "value": "1",
+              "type": "text",
+              "description": "ID của yêu cầu cấp phát"
+            },
+            {
+              "key": "Status",
+              "value": "5",
+              "type": "text",
+              "description": "5 = Đã hoàn tất (nhận hàng)"
+            },
+            {
+              "key": "Details[0][OrderRequestDetailId]",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "Details[0][ReceivedQuantity]",
+              "value": "5",
+              "type": "text"
+            },
+            {
+              "key": "Details[1][OrderRequestDetailId]",
+              "value": "2",
+              "type": "text"
+            },
+            {
+              "key": "Details[1][ReceivedQuantity]",
+              "value": "3",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/update-status",
+          "host": ["{{base_url}}"],
+          "path": ["customer", "inventory", "order-request", "update-status"]
+        },
+        "description": "Khi Status = 5, cập nhật ReceivedQuantity từng dòng và OutboutRequest liên quan thành Status = 2."
+      }
+    },
+    {
+      "name": "Update Status = 2 (Duyệt)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "OrderRequestId",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "Status",
+              "value": "2",
+              "type": "text",
+              "description": "2 = Đã duyệt"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/update-status",
+          "host": ["{{base_url}}"],
+          "path": ["customer", "inventory", "order-request", "update-status"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "description": "Base URL của API"
+    },
+    {
+      "key": "token",
+      "value": "your_token_here",
+      "description": "Bearer token sau khi login"
+    }
+  ]
+}

@@ -1,0 +1,350 @@
+{
+  "info": {
+    "name": "Delivery List and Detail APIs",
+    "_postman_id": "delivery-list-detail-001",
+    "description": "API để lấy danh sách và chi tiết phiếu giao hàng",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Delivery List - All",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"limit\": 20,\n  \"lmstart\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-list"
+          ]
+        },
+        "description": "Lấy tất cả phiếu giao hàng với pagination"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery List - Filter by DepartmentId",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 1,\n  \"limit\": 20,\n  \"lmstart\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-list"
+          ]
+        },
+        "description": "Lấy danh sách phiếu giao hàng theo phòng khám"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery List - Filter by Status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Status\": 1,\n  \"limit\": 20,\n  \"lmstart\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-list"
+          ]
+        },
+        "description": "Lấy danh sách phiếu giao hàng theo trạng thái\n- Status = 1: Đang giao\n- Status = 2: Hoàn thành"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery List - Search by Keyword",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Keyword\": \"PX-202401\",\n  \"limit\": 20,\n  \"lmstart\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-list"
+          ]
+        },
+        "description": "Tìm kiếm phiếu giao hàng theo mã phiếu xuất"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery List - Multiple Filters",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 1,\n  \"Status\": 1,\n  \"Keyword\": \"GH\",\n  \"limit\": 20,\n  \"lmstart\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-list"
+          ]
+        },
+        "description": "Lấy danh sách phiếu giao hàng với nhiều bộ lọc"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery Detail - Success",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-detail",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-detail"
+          ]
+        },
+        "description": "Lấy chi tiết phiếu giao hàng theo OutboutRequestId"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery Detail - Missing ID",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-detail",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-detail"
+          ]
+        },
+        "description": "Test case: Thiếu OutboutRequestId (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery Detail - Not Found",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 999999\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/delivery-detail",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "delivery-detail"
+          ]
+        },
+        "description": "Test case: OutboutRequestId không tồn tại (Expected: Error 404)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your_access_token_here",
+      "type": "string"
+    }
+  ]
+}

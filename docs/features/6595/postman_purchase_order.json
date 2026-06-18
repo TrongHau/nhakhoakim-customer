@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "Inventory - Purchase Order",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Single PO",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:6801/api/customer-v2/inventory/purchase-order/create",
+          "host": ["http://localhost:6801"],
+          "path": ["api", "customer-v2", "inventory", "purchase-order", "create"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"SupplierId\": 1,\n  \"OrderDate\": \"2026-03-26\",\n  \"ExpectedDeliveryDate\": \"2026-04-05\",\n  \"Note\": \"Đơn hàng tháng 3\",\n  \"Details\": [\n    {\n      \"ProductId\": 1,\n      \"UnitId\": 1,\n      \"Specification\": \"Tuýp 4g\",\n      \"Quantity\": 100,\n      \"UnitPrice\": 150000,\n      \"Note\": \"\"\n    },\n    {\n      \"ProductId\": 2,\n      \"UnitId\": 1,\n      \"Specification\": \"Hộp 10 cái\",\n      \"Quantity\": 50,\n      \"UnitPrice\": 80000,\n      \"Note\": \"\"\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Multiple POs",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:6801/api/customer-v2/inventory/purchase-order/create",
+          "host": ["http://localhost:6801"],
+          "path": ["api", "customer-v2", "inventory", "purchase-order", "create"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  {\n    \"SupplierId\": 1,\n    \"OrderDate\": \"2026-03-26\",\n    \"ExpectedDeliveryDate\": \"2026-04-05\",\n    \"Note\": \"PO NCC 1\",\n    \"Details\": [\n      {\n        \"ProductId\": 1,\n        \"UnitId\": 1,\n        \"Specification\": \"Tuýp 4g\",\n        \"Quantity\": 100,\n        \"UnitPrice\": 150000,\n        \"Note\": \"\"\n      }\n    ]\n  },\n  {\n    \"SupplierId\": 2,\n    \"OrderDate\": \"2026-03-26\",\n    \"ExpectedDeliveryDate\": \"2026-04-10\",\n    \"Note\": \"PO NCC 2\",\n    \"Details\": [\n      {\n        \"ProductId\": 3,\n        \"UnitId\": 2,\n        \"Specification\": \"Chai 500ml\",\n        \"Quantity\": 20,\n        \"UnitPrice\": 200000,\n        \"Note\": \"\"\n      }\n    ]\n  }\n]"
+        }
+      }
+    },
+    {
+      "name": "Get PO List",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:6801/api/customer-v2/inventory/purchase-order/list?limit=20&lmstart=0",
+          "host": ["http://localhost:6801"],
+          "path": ["api", "customer-v2", "inventory", "purchase-order", "list"],
+          "query": [
+            { "key": "limit", "value": "20" },
+            { "key": "lmstart", "value": "0" },
+            { "key": "SupplierId", "value": "", "disabled": true },
+            { "key": "Status", "value": "", "disabled": true }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get PO Detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:6801/api/customer-v2/inventory/purchase-order/detail/1",
+          "host": ["http://localhost:6801"],
+          "path": ["api", "customer-v2", "inventory", "purchase-order", "detail", "1"]
+        }
+      }
+    },
+    {
+      "name": "Update PO",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:6801/api/customer-v2/inventory/purchase-order/update/1",
+          "host": ["http://localhost:6801"],
+          "path": ["api", "customer-v2", "inventory", "purchase-order", "update", "1"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OrderDate\": \"2026-03-26\",\n  \"ExpectedDeliveryDate\": \"2026-04-10\",\n  \"Note\": \"Cập nhật đơn hàng\",\n  \"Details\": [\n    {\n      \"PurchaseOrderDetailId\": 1,\n      \"ProductId\": 1,\n      \"UnitId\": 1,\n      \"Specification\": \"Tuýp 4g\",\n      \"Quantity\": 120,\n      \"UnitPrice\": 150000,\n      \"Note\": \"Tăng số lượng\"\n    },\n    {\n      \"ProductId\": 4,\n      \"UnitId\": 1,\n      \"Specification\": \"Hộp 20 cái\",\n      \"Quantity\": 30,\n      \"UnitPrice\": 90000,\n      \"Note\": \"Dòng mới\"\n    }\n  ]\n}"
+        }
+      }
+    }
+  ]
+}

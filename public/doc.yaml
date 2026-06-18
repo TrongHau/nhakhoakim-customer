@@ -1,0 +1,388 @@
+openapi: 3.0.0
+info:
+  title: 'Swagger Petstore'
+  description: 'CRM Api'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: hoang.nguyennguyen@aipacific.vn
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://tin.aipacific.tech/microservice/crm'
+    description: Train
+  -
+    url: 'http://crm-service.dv:90'
+    description: Local
+  -
+    url: 'http://crmapi.local'
+    description: Local
+paths:
+  /auth/roles:
+    get:
+      tags:
+        - Roles
+      responses:
+        '200':
+          description: 'List Role'
+        '401':
+          description: 'Toke wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  /auth/roles/create:
+    post:
+      tags:
+        - Roles
+      description: 'Create new Role following existed permission'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequestBody'
+      responses:
+        '200':
+          description: 'List Role'
+        '401':
+          description: 'Token wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  '/auth/roles/{id}':
+    get:
+      tags:
+        - Roles
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Id of Role to return'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'List Role'
+        '401':
+          description: 'Toke wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  /auth/user:
+    get:
+      tags:
+        - User
+      responses:
+        '200':
+          description: 'List Role'
+        '401':
+          description: 'Toke wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  /auth/user/create:
+    post:
+      tags:
+        - User
+      description: 'Create new user following existed Role'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequestBody'
+      responses:
+        '200':
+          description: success
+        '401':
+          description: 'Token wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  '/auth/user/{id}':
+    get:
+      tags:
+        - User
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'HiSId of User to return'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'User Detail'
+        '401':
+          description: 'Toke wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  /campaign:
+    get:
+      tags:
+        - Campaign
+      parameters:
+        -
+          name: keyword
+          in: query
+          description: 'Keyword to search by name/code'
+          schema:
+            type: string
+          example: ''
+        -
+          name: createdBy
+          in: query
+          description: 'Keyword to filter by creator ID'
+          schema:
+            type: integer
+        -
+          name: perPage
+          in: query
+          description: 'Limit items per page. Default: 15'
+          schema:
+            type: integer
+        -
+          name: page
+          in: query
+          description: 'Current page for paging. Default: 1'
+          schema:
+            type: integer
+          example: '1'
+        -
+          name: orderBy
+          in: query
+          description: 'Sort field name. Example: CampaignId, Name, Code, CreatedDate, LastUpdatedDate, etc.'
+          schema:
+            type: string
+          example: CampaignId
+        -
+          name: orderType
+          in: query
+          description: 'Sort direction (ASC, DESC). Default: ASC (if exists parameter [orderBy])'
+          schema:
+            type: string
+          example: ASC
+      responses:
+        '200':
+          description: 'List Campaign'
+        '401':
+          description: 'Token wrong'
+      security:
+        -
+          bearerAuth: []
+  /campaign/create:
+    post:
+      tags:
+        - Campaign
+      description: 'Create new campaign'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CampaignRequestBody'
+      responses:
+        '200':
+          description: success
+        '401':
+          description: 'Token wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  '/campaign/{id}':
+    get:
+      tags:
+        - Campaign
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Campaign ID'
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: '1'
+      responses:
+        '200':
+          description: 'Campaign Detail'
+        '401':
+          description: 'Token wrong'
+      security:
+        -
+          bearerAuth: []
+  '/campaign/update/{id}':
+    post:
+      tags:
+        - Campaign
+      description: 'Update campaign detail by CampaignId'
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Campaign ID'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CampaignRequestBody'
+      responses:
+        '200':
+          description: success
+        '401':
+          description: 'Token wrong'
+        '400':
+          description: 'Wrong input'
+      security:
+        -
+          bearerAuth: []
+  '/campaign/delete/{id}':
+    delete:
+      tags:
+        - Campaign
+      description: 'Delete a campaign by CampaignId'
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Campaign ID'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: success
+        '401':
+          description: 'Token wrong'
+      security:
+        -
+          bearerAuth: []
+components:
+  schemas:
+    CampaignRequestBody:
+      title: 'Campaign Models'
+      description: 'Campaign model'
+      required:
+        - Name
+        - Code
+      properties:
+        Name:
+          description: 'Campaign Name'
+          type: string
+          example: 'Campaign A'
+        Code:
+          description: 'Campaign Code'
+          type: string
+          example: CAMPA
+        Description:
+          description: 'Campaign description'
+          type: string
+          example: 'Campaign for A to offer new products'
+        Status:
+          description: 'Campaign status is active, deactive, etc.'
+          type: integer
+          example: '1'
+        StartDate:
+          description: 'The start date of campaign'
+          type: string
+          format: date
+          example: '2019-11-20'
+        EndDate:
+          description: 'The end date of campaign'
+          type: string
+          format: date
+          example: '2019-12-25'
+        SourceCampaignId:
+          description: 'Source ID of campaign'
+          type: interger
+          example: '1'
+      type: object
+    RoleRequestBody:
+      title: 'Role Models'
+      description: 'Role model'
+      required:
+        - RoleName
+        - RoleDescription
+        - PermissionId
+      properties:
+        RoleName:
+          description: 'Name of role'
+          type: string
+          example: CC
+        RoleDescription:
+          description: 'Role Description'
+          type: string
+          example: 'This role is the role of super man'
+        PermissionId:
+          description: 'Role Description'
+          type: array
+          items:
+            type: interger
+          example: '[1,2,3]'
+      type: object
+    UserRequestBody:
+      title: 'User Models'
+      description: 'User model'
+      required:
+        - UserId
+        - Email
+        - UserName
+        - RoleId
+      properties:
+        UserName:
+          description: 'Name of User'
+          type: string
+          example: CC
+        Email:
+          description: 'email of user'
+          type: string
+          example: 123@123.com
+        UserId:
+          description: 'HiS UserID'
+          type: interger
+          example: '2821'
+        RoleId:
+          description: 'RoleId array Description'
+          type: array
+          items:
+            type: interger
+          example: '[1,2,3]'
+      type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      bearerFormat: JWT
+      scheme: bearer
+tags:
+  -
+    name: Roles
+    description: 'Role of User'
+  -
+    name: Permission
+    description: 'Permisson of User'
+  -
+    name: User
+    description: 'Operations about user'

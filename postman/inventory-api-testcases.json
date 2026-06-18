@@ -1,0 +1,382 @@
+{
+  "info": {
+    "name": "Inventory API - Test Cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "token", "value": "your_bearer_token_here" }
+  ],
+  "item": [
+
+    {
+      "name": "1. Product",
+      "item": [
+        {
+          "name": "list-product",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Keyword", "value": ""},
+              {"key": "Status", "value": "1"},
+              {"key": "ProductCategoryId", "value": ""},
+              {"key": "SupplierId", "value": ""},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/product/list-product"}
+          }
+        },
+        {
+          "name": "detail-product",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "ProductId", "value": "1"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/product/detail-product"}
+          }
+        },
+        {
+          "name": "create-product",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Name", "value": "Sản phẩm test"},
+              {"key": "ProductCategoryId", "value": "1"},
+              {"key": "UnitId", "value": "1"},
+              {"key": "SupplierId", "value": "1"},
+              {"key": "Price", "value": "100000"},
+              {"key": "Status", "value": "1"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/product/create-product"}
+          }
+        },
+        {
+          "name": "update-product",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "ProductId", "value": "1"},
+              {"key": "Name", "value": "Sản phẩm test updated"},
+              {"key": "Price", "value": "200000"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/product/update-product"}
+          }
+        },
+        {
+          "name": "toggle-product",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "ProductId", "value": "1"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/product/toggle-product"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "2. Supplier",
+      "item": [
+        {
+          "name": "list-supplier",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Keyword", "value": ""},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/supplier/list-supplier"}
+          }
+        },
+        {
+          "name": "create-supplier",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Name", "value": "NCC Test"},
+              {"key": "TaxCode", "value": "0123456789"},
+              {"key": "Phone", "value": "0901234567"},
+              {"key": "Email", "value": "ncc@test.com"},
+              {"key": "Address", "value": "123 Test Street"},
+              {"key": "Status", "value": "1"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/supplier/create-supplier"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "3. Order Request",
+      "item": [
+        {
+          "name": "list (phía phòng khám)",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "BranchId", "value": "1"},
+              {"key": "Status", "value": "1"},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/list"}
+          }
+        },
+        {
+          "name": "list-all (phía kho)",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": []},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/list-all"}
+          }
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "BranchId", "value": "1"},
+              {"key": "Note", "value": "Yêu cầu test"},
+              {"key": "Details[0][ProductId]", "value": "1"},
+              {"key": "Details[0][UnitId]", "value": "1"},
+              {"key": "Details[0][RequestQuantity]", "value": "10"},
+              {"key": "Details[0][Note]", "value": ""},
+              {"key": "Details[1][ProductId]", "value": "2"},
+              {"key": "Details[1][UnitId]", "value": "1"},
+              {"key": "Details[1][RequestQuantity]", "value": "5"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/create"}
+          }
+        },
+        {
+          "name": "update-status = 2 (Duyệt)",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "OrderRequestId", "value": "1"},
+              {"key": "Status", "value": "2"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/update-status"}
+          }
+        },
+        {
+          "name": "update-status = 4 (Xuất kho)",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "OrderRequestId", "value": "1"},
+              {"key": "Status", "value": "4"},
+              {"key": "ExpectedReceiptDate", "value": "2026-04-10"},
+              {"key": "DeliveryStaff", "value": "Nguyễn Văn A"},
+              {"key": "DeliveryDate", "value": "2026-04-05"},
+              {"key": "Note", "value": "Giao hàng test"},
+              {"key": "Details[0][OrderRequestDetailId]", "value": "1"},
+              {"key": "Details[0][ExpectedQty]", "value": "8"},
+              {"key": "Details[1][OrderRequestDetailId]", "value": "2"},
+              {"key": "Details[1][ExpectedQty]", "value": "5"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/update-status"}
+          }
+        },
+        {
+          "name": "update-status = 5 (Nhận hàng)",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "OrderRequestId", "value": "1"},
+              {"key": "Status", "value": "5"},
+              {"key": "Details[0][OrderRequestDetailId]", "value": "1"},
+              {"key": "Details[0][ReceivedQuantity]", "value": "8"},
+              {"key": "Details[1][OrderRequestDetailId]", "value": "2"},
+              {"key": "Details[1][ReceivedQuantity]", "value": "5"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/update-status"}
+          }
+        },
+        {
+          "name": "update-expected-delivery-date",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "OrderRequestId", "value": "1"},
+              {"key": "ExpectedDeliveryDate", "value": "2026-04-15"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/order-request/update-expected-delivery-date"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "4. Purchase Order",
+      "item": [
+        {
+          "name": "list",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "SupplierId", "value": ""},
+              {"key": "Status", "value": ""},
+              {"key": "FromDate", "value": "2026-01-01"},
+              {"key": "ToDate", "value": "2026-12-31"},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/purchase-order/list"}
+          }
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Order[0][SupplierId]", "value": "1"},
+              {"key": "Order[0][OrderDate]", "value": "2026-04-01"},
+              {"key": "Order[0][ExpectedDeliveryDate]", "value": "2026-04-10"},
+              {"key": "Order[0][Note]", "value": "PO test"},
+              {"key": "Order[0][Details][0][ProductId]", "value": "1"},
+              {"key": "Order[0][Details][0][UnitId]", "value": "1"},
+              {"key": "Order[0][Details][0][Quantity]", "value": "10"},
+              {"key": "Order[0][Details][0][UnitPrice]", "value": "50000"},
+              {"key": "Order[0][Details][1][ProductId]", "value": "2"},
+              {"key": "Order[0][Details][1][UnitId]", "value": "1"},
+              {"key": "Order[0][Details][1][Quantity]", "value": "5"},
+              {"key": "Order[0][Details][1][UnitPrice]", "value": "100000"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/purchase-order/create"}
+          }
+        },
+        {
+          "name": "send",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "PurchaseOrderId", "value": "1"},
+              {"key": "Note", "value": "Gửi NCC"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/purchase-order/send"}
+          }
+        },
+        {
+          "name": "export",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "FromDate", "value": "2026-01-01"},
+              {"key": "ToDate", "value": "2026-12-31"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/purchase-order/export"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "5. Inbout Request",
+      "item": [
+        {
+          "name": "list",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "PurchaseOrderId", "value": ""},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/inbout-request/list"}
+          }
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "PurchaseOrderId", "value": "1"},
+              {"key": "Details[0][ProductId]", "value": "1"},
+              {"key": "Details[0][UnitId]", "value": "1"},
+              {"key": "Details[0][ExpectedQty]", "value": "10"},
+              {"key": "Details[0][ActualQty]", "value": "10"},
+              {"key": "Details[1][ProductId]", "value": "2"},
+              {"key": "Details[1][UnitId]", "value": "1"},
+              {"key": "Details[1][ExpectedQty]", "value": "5"},
+              {"key": "Details[1][ActualQty]", "value": "4"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/inbout-request/create"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "6. Outbout Request",
+      "item": [
+        {
+          "name": "list",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "RelatedId", "value": "1"},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/outbout-request/list"}
+          }
+        },
+        {
+          "name": "confirm",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "OutboutRequestId", "value": "1"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/outbout-request/confirm"}
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "7. Inventory",
+      "item": [
+        {
+          "name": "list-stock",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "Keyword", "value": ""},
+              {"key": "WarehouseId", "value": ""},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/inventory/list-stock"}
+          }
+        },
+        {
+          "name": "summary-stock",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": []},
+            "url": {"raw": "{{base_url}}/customer/inventory/inventory/summary-stock"}
+          }
+        },
+        {
+          "name": "history-stock",
+          "request": {
+            "method": "POST", "header": [{"key": "Authorization","value": "Bearer {{token}}"}],
+            "body": { "mode": "formdata", "formdata": [
+              {"key": "InventoryId", "value": "1"},
+              {"key": "limit", "value": "10"},
+              {"key": "lmstart", "value": "0"}
+            ]},
+            "url": {"raw": "{{base_url}}/customer/inventory/inventory/history-stock"}
+          }
+        }
+      ]
+    }
+
+  ]
+}

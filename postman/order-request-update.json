@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Order Request - Update",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "token", "value": "your_bearer_token_here" }
+  ],
+  "item": [
+    {
+      "name": "1. Update header only (không sửa Details)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "OrderRequestId", "value": "1", "description": "ID yêu cầu cần sửa" },
+            { "key": "Note", "value": "Ghi chú đã cập nhật", "description": "Ghi chú mới" },
+            { "key": "ExpectedDeliveryDate", "value": "2026-04-20", "description": "Ngày giao hàng dự kiến" },
+            { "key": "MaterialGroupId", "value": "2", "description": "Nhóm vật tư (optional)" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/customer/inventory/order-request/update" },
+        "description": "Chỉ cập nhật Note/ExpectedDeliveryDate/MaterialGroupId. Không truyền Details → không thay đổi chi tiết sản phẩm."
+      }
+    },
+    {
+      "name": "2. Update + sửa dòng cũ trong Details",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "OrderRequestId", "value": "1" },
+            { "key": "Note", "value": "Cập nhật số lượng sản phẩm" },
+            { "key": "ExpectedDeliveryDate", "value": "2026-04-25" },
+            { "key": "Details[0][OrderRequestDetailId]", "value": "10", "description": "ID dòng cũ cần sửa" },
+            { "key": "Details[0][ProductId]", "value": "5" },
+            { "key": "Details[0][UnitId]", "value": "1" },
+            { "key": "Details[0][RequestQuantity]", "value": "20", "description": "Số lượng mới" },
+            { "key": "Details[0][Specification]", "value": "Quy cách mới" },
+            { "key": "Details[0][Note]", "value": "Ghi chú dòng 1" },
+            { "key": "Details[1][OrderRequestDetailId]", "value": "11" },
+            { "key": "Details[1][ProductId]", "value": "6" },
+            { "key": "Details[1][UnitId]", "value": "1" },
+            { "key": "Details[1][RequestQuantity]", "value": "10" },
+            { "key": "Details[1][Note]", "value": "" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/customer/inventory/order-request/update" },
+        "description": "Truyền Details với OrderRequestDetailId → sửa dòng cũ. Các dòng không có trong payload sẽ bị xóa."
+      }
+    },
+    {
+      "name": "3. Update + thêm dòng mới vào Details",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "OrderRequestId", "value": "1" },
+            { "key": "Note", "value": "Thêm sản phẩm mới" },
+            { "key": "Details[0][OrderRequestDetailId]", "value": "10", "description": "Dòng cũ - giữ lại" },
+            { "key": "Details[0][ProductId]", "value": "5" },
+            { "key": "Details[0][UnitId]", "value": "1" },
+            { "key": "Details[0][RequestQuantity]", "value": "15" },
+            { "key": "Details[0][Note]", "value": "" },
+            { "key": "Details[1][ProductId]", "value": "7", "description": "Dòng mới - không có OrderRequestDetailId" },
+            { "key": "Details[1][UnitId]", "value": "2" },
+            { "key": "Details[1][RequestQuantity]", "value": "5" },
+            { "key": "Details[1][Specification]", "value": "Hộp 100ml" },
+            { "key": "Details[1][Note]", "value": "Sản phẩm bổ sung" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/customer/inventory/order-request/update" },
+        "description": "Details[0] có OrderRequestDetailId → sửa dòng cũ. Details[1] không có OrderRequestDetailId → thêm dòng mới."
+      }
+    },
+    {
+      "name": "4. Error - Status != 1 (không cho sửa)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "OrderRequestId", "value": "99", "description": "ID của OrderRequest đã duyệt (Status=2)" },
+            { "key": "Note", "value": "Thử sửa khi đã duyệt" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/customer/inventory/order-request/update" },
+        "description": "Expect: 422 - Chỉ có thể sửa yêu cầu ở trạng thái Mới"
+      }
+    }
+  ]
+}

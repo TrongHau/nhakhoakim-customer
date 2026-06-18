@@ -1,0 +1,350 @@
+{
+  "info": {
+    "name": "Confirm Delivery API",
+    "_postman_id": "confirm-delivery-001",
+    "description": "API để xác nhận phiếu giao hàng",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Confirm Delivery - Success Case",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 1,\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 1,\n      \"ActualQty\": 5\n    },\n    {\n      \"OutboutRequestDetailId\": 2,\n      \"ActualQty\": 10\n    },\n    {\n      \"OutboutRequestDetailId\": 3,\n      \"ActualQty\": 8\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Xác nhận phiếu giao hàng với số lượng thực nhận đầy đủ"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Partial Received",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 2,\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 4,\n      \"ActualQty\": 3\n    },\n    {\n      \"OutboutRequestDetailId\": 5,\n      \"ActualQty\": 7\n    },\n    {\n      \"OutboutRequestDetailId\": 6,\n      \"ActualQty\": 0\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Xác nhận phiếu giao hàng với số lượng nhận một phần (có sản phẩm nhận 0)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - All Zero",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 3,\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 7,\n      \"ActualQty\": 0\n    },\n    {\n      \"OutboutRequestDetailId\": 8,\n      \"ActualQty\": 0\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Xác nhận phiếu giao hàng với tất cả sản phẩm nhận 0 (trường hợp giao hàng thất bại)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Missing OutboutRequestId",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 1,\n      \"ActualQty\": 5\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Test case: Thiếu OutboutRequestId (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Missing Details",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Test case: Thiếu Details array (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Empty Details",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 1,\n  \"Details\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Test case: Details array rỗng (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Not Found",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 999999,\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 1,\n      \"ActualQty\": 5\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Test case: OutboutRequestId không tồn tại (Expected: Error 500)"
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Delivery - Already Confirmed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"OutboutRequestId\": 1,\n  \"Details\": [\n    {\n      \"OutboutRequestDetailId\": 1,\n      \"ActualQty\": 5\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/confirm-delivery",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "confirm-delivery"
+          ]
+        },
+        "description": "Test case: Xác nhận lại phiếu đã được xác nhận (Expected: Error 500)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your_access_token_here",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "info": {
+    "name": "Create Delivery From Demand",
+    "_postman_id": "create-delivery-from-demand-001",
+    "description": "API để tạo phiếu giao hàng từ DepartmentDemand",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Delivery From Demand - Success Case",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 1,\n  \"DepartmentType\": 1,\n  \"Products\": [\n    {\n      \"ProductId\": 101,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 50\n    },\n    {\n      \"ProductId\": 102,\n      \"UnitId\": 2,\n      \"DeliveryQty\": 30\n    },\n    {\n      \"ProductId\": 103,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 20\n    }\n  ],\n  \"ExpectedReceiptDate\": \"2024-12-31\",\n  \"DeliveryStaff\": \"Nguyễn Văn A\",\n  \"DeliveryDate\": \"2024-12-25\",\n  \"Note\": \"Giao hàng khẩn cấp cho phòng khám chi nhánh 1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Tạo phiếu giao hàng từ DepartmentDemand với đầy đủ thông tin"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery From Demand - Minimal Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 2,\n  \"Products\": [\n    {\n      \"ProductId\": 201,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 100\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Tạo phiếu giao hàng với các trường bắt buộc tối thiểu"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery From Demand - Multiple Products",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 3,\n  \"DepartmentType\": 1,\n  \"Products\": [\n    {\n      \"ProductId\": 301,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 25\n    },\n    {\n      \"ProductId\": 302,\n      \"UnitId\": 2,\n      \"DeliveryQty\": 40\n    },\n    {\n      \"ProductId\": 303,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 15\n    },\n    {\n      \"ProductId\": 304,\n      \"UnitId\": 3,\n      \"DeliveryQty\": 60\n    },\n    {\n      \"ProductId\": 305,\n      \"UnitId\": 2,\n      \"DeliveryQty\": 35\n    }\n  ],\n  \"ExpectedReceiptDate\": \"2024-12-28\",\n  \"DeliveryStaff\": \"Trần Thị B\",\n  \"DeliveryDate\": \"2024-12-26\",\n  \"Note\": \"Giao hàng định kỳ tháng 12\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Tạo phiếu giao hàng với nhiều sản phẩm (5 items)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery From Demand - Missing DepartmentId",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Products\": [\n    {\n      \"ProductId\": 101,\n      \"UnitId\": 1,\n      \"DeliveryQty\": 50\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Test case: Thiếu DepartmentId (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery From Demand - Missing Products",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Test case: Thiếu Products array (Expected: Error 422)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery From Demand - Empty Products Array",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"DepartmentId\": 1,\n  \"Products\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/customer/inventory/order-request/create-delivery-from-demand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customer",
+            "inventory",
+            "order-request",
+            "create-delivery-from-demand"
+          ]
+        },
+        "description": "Test case: Products array rỗng (Expected: Error 422 hoặc 500)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your_access_token_here",
+      "type": "string"
+    }
+  ]
+}

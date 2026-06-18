@@ -1,0 +1,144 @@
+# Default values for amilo-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+name: hc-customer
+image:
+  repository: reg-gitlab.aipacific.vn/his-container/customer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets:
+  - name: "gitlab-registry"
+nameOverride: ""
+fullnameOverride: "hc-customer"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+health:
+  live: /ping.php
+  ready: /ping.php
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: "hc-customer.his.aipacific.tech"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: "hc-customer"
+      hosts:
+        - "hc-customer.his.aipacific.tech"
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 400Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+env:
+  ###time zone and env##
+  TZ:
+    valueFrom:
+      configMapKeyRef:
+        name: runtime
+        key: TZ
+  ###CONFIG POS####
+  ENV_CONFIG_HC_CUSTOMER:
+    valueFrom:
+      secretKeyRef:
+        name: runtime
+        key: ENV_CONFIG_HC_CUSTOMER
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+##VolumeMounts data pod
+volumeMounts:
+##"name" must is "extra-data-mount"
+#  - name: extra-data-mount
+#    mountPath: "/src/public/data-mount"
+##"name" must is "logging"
+  - name: logging
+    mountPath: "/src/public/storage/logs"
+
+####SidecarContainerLogging#####
+sidecar:
+  enabled: true
+  repository: fluentd
+  tag: latest
+  name: sidecar-logging
+  pullPolicy: IfNotPresent
+  configMap:
+    fluent.conf: |
+      <source>
+        @type tail
+        path /var/log/*.txt
+        pos_file /tmp/app.logs.hc.customer
+        follow_inodes true
+        refresh_interval 15
+        tag app.logs
+        <parse>
+          @type none
+        </parse>
+      </source>
+      <match app.logs>
+        @type stdout
+        <format>
+          @type single_value
+          message_key message
+        </format>
+      </match>
+  volumeMounts:
+  ##Logging
+  #"name" must is "logging"
+    - name: logging
+      mountPath: "/var/log"
+  #"name" must is "beat-config"
+    - name: beat-config
+      mountPath: /fluentd/etc
