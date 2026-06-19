@@ -6,6 +6,7 @@ on:
 
 env:
   IMAGE_NAME: customer-22
+  DOCKER_USER: testjt1
 
 jobs:
   build:
@@ -16,7 +17,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ env.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
@@ -25,8 +26,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.DOCKER_USER }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.DOCKER_USER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
   deploy:
     needs: build
@@ -54,7 +55,7 @@ jobs:
 
           kubectl create secret docker-registry docker-secret \
             --docker-server=docker.io \
-            --docker-username=${{ secrets.DOCKER_USERNAME }} \
+            --docker-username=${{ env.DOCKER_USER }} \
             --docker-password=${{ secrets.DOCKER_PASSWORD }} \
             --dry-run=client -o yaml | kubectl apply -f -
 
