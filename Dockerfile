@@ -1,12 +1,12 @@
 FROM testjt1/docker-php-his-customer:latest
 
-WORKDIR /app
+WORKDIR /var/www/html
 
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs || true
 
-RUN chown -R www-data:www-data /app
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 9000
 
