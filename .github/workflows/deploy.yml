@@ -26,8 +26,8 @@ jobs:
           push: true
           pull: true
           tags: |
-            testjt1/customer-22:latest
-            testjt1/customer-22:${{ github.sha }}
+            testjt1/docker-php-his-customer:latest
+            testjt1/docker-php-his-customer:${{ github.sha }}
 
   deploy:
     needs: build
