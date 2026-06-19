@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: testjt1/customer-2:latest
+          image: testjt1/docker-php-his-customer:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
