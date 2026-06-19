@@ -1,4 +1,4 @@
-FROM testjt1/customer-22:latest
+FROM testjt1/docker-php-his-customer:latest
 
 WORKDIR /app
 COPY . .
