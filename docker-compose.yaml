@@ -1,11 +1,38 @@
-version: '3'
+version: '3.8'
+
 services:
-  web:
-    image: max26292/php71
+  nginx:
+    image: docker-nginx-his-customer:latest
+    container_name: customer-nginx
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./:/var/www/html/
-    command: apachectl -D FOREGROUND
-  redis:
-    image: redis
+      - ./:/app
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+    networks:
+      - app-network
+    environment:
+      - APP_ENV=local
+
+  php:
+    image: docker-php-his-customer:latest
+    container_name: customer-php
+    volumes:
+      - ./:/app
+    working_dir: /app
+    networks:
+      - app-network
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=host.docker.internal
+      - DB_DATABASE=customer_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+
+networks:
+  app-network:
+    driver: bridge
